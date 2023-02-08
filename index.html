@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi economia</title>
+</head>
+
+<body>
+    <h1>Mi aplicacion para gastos</h1>
+
+
+    <form id="transactionForm">
+        <div class="claseFormulario">
+            <input id="ingreso" type="radio" name="tsSelector">
+            <label for="ingreso">Ingreso</label>
+            <input id="egreso" type="radio" name="tsSelector">
+            <label for="egreso">Egreso</label>
+        </div>
+
+        <!--
+        <div>
+            <label for="transactionTipo">Tipo</label>
+            <input id="transactionTipo" name="transactionTipo">
+        </div>
+        ssss
+    -->
+
+        <div class="claseFormulario">
+            <label for="transactionDescripcion">Descripcion</label>
+            <input id="transactionDescripcion" name="transactionDescripcion">
+        </div>
+
+        <div class="claseFormulario">
+            <label for="transactionMonto">Monto</label>
+            <input id="transactionMonto" name="transactionMonto" type="number">
+        </div>
+
+        <div class="claseFormulario">
+            <label for="transactionCategoria">Categoria</label>
+            <input id="transactionCategoria" name="transactionCategoria">
+        </div>
+
+        <div class="claseFormulario">
+            <button id="botonDeEnvio">
+                Añadir
+            </button>
+        </div>
+
+
+    </form>
+    </div>
+    <div class="tableFormat">
+        <table>
+            <tr>
+                <th>Tipo</th>
+                <th>Descripcion</th>
+                <th>Monto</th>
+                <th>Categoria</th>
+            </tr>
+            <tr>
+                <td>Ingreso</td>
+                <td>sueldo</td>
+                <td>1000</td>
+                <td>trabajo</td>
+            </tr>
+            <tr>
+                <td>Egreso</td>
+                <td>milanesa</td>
+                <td>7</td>
+                <td>comida</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        const form = document.getElementById("transactionForm");
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            console.log(event)
+        }
+        )
+    </script>
+
+    <style>
+        .claseFormulario {
+            background-color: wheat;
+            padding: 12px;
+
+        }
+
+        form {
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        td,
+        th {
+            text-align: center;
+            padding: 10px;
+            border: solid red 1px;
+        }
+
+        .tableFormat table {
+            margin: 0 auto;
+        }
+
+        #botonDeEnvio {
+            font-size: 30px;
+
+        }
+    </style>
+
+</body>
+
+</html>
