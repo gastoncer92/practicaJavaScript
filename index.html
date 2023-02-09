@@ -14,10 +14,10 @@
 
     <form id="transactionForm">
         <div class="claseFormulario">
-            <input id="ingreso" type="radio" name="tsSelector">
             <label for="ingreso">Ingreso</label>
-            <input id="egreso" type="radio" name="tsSelector">
+            <input id="ingreso" type="radio" name="tsSelector" value="ingreso">
             <label for="egreso">Egreso</label>
+            <input id="egreso" type="radio" name="tsSelector" value="egreso">
         </div>
 
         <!--
@@ -25,22 +25,21 @@
             <label for="transactionTipo">Tipo</label>
             <input id="transactionTipo" name="transactionTipo">
         </div>
-        ssss
-    -->
+        -->
 
         <div class="claseFormulario">
             <label for="transactionDescripcion">Descripcion</label>
-            <input id="transactionDescripcion" name="transactionDescripcion">
+            <input id="transactionDescripcion" name="datoDescripcion">
         </div>
 
         <div class="claseFormulario">
             <label for="transactionMonto">Monto</label>
-            <input id="transactionMonto" name="transactionMonto" type="number">
+            <input id="transactionMonto" name="datoMonto" type="number">
         </div>
 
         <div class="claseFormulario">
             <label for="transactionCategoria">Categoria</label>
-            <input id="transactionCategoria" name="transactionCategoria">
+            <input id="transactionCategoria" name="datoCategoria">
         </div>
 
         <div class="claseFormulario">
@@ -80,7 +79,10 @@
 
         form.addEventListener("submit", function (event) {
             event.preventDefault();
-            console.log(event)
+            <!-- console.log(event) -->
+            let transactionForm = new FormData(form)
+            console.log(transactionForm.get("datoMonto"))
+
         }
         )
     </script>
