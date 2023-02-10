@@ -81,6 +81,15 @@
             event.preventDefault();
             <!-- console.log(event) -->
             let transactionForm = new FormData(form);
+            insertarFilaEnTransactionTable(transactionForm);
+
+
+
+
+
+
+        })
+        function insertarFilaEnTransactionTable(transactionForm) {
             let transactionTableRef = document.getElementById("transactionTable");
 
 
@@ -89,11 +98,18 @@
 
             //newTransactionRowRef.insertCell(0)
             let newTypeCellRef = newTransactionRowRef.insertCell(0);
-            newTypeCellRef.textContent = "hola"
+            newTypeCellRef.textContent = transactionForm.get('transactionTipo');
 
+            newTypeCellRef = newTransactionRowRef.insertCell(1);
+            newTypeCellRef.textContent = transactionForm.get('datoDescripcion');
+
+            newTypeCellRef = newTransactionRowRef.insertCell(2);
+            newTypeCellRef.textContent = transactionForm.get('datoMonto');
+
+            newTypeCellRef = newTransactionRowRef.insertCell(3);
+            newTypeCellRef.textContent = transactionForm.get('datoCategoria');
 
         }
-        )
     </script>
 
     <style>
