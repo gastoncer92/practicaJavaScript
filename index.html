@@ -15,9 +15,9 @@
     <form id="transactionForm">
         <div class="claseFormulario">
             <label for="ingreso">Ingreso</label>
-            <input id="ingreso" type="radio" name="tsSelector" value="ingreso">
+            <input id="ingreso" type="radio" name="transactionTipo" value="ingreso">
             <label for="egreso">Egreso</label>
-            <input id="egreso" type="radio" name="tsSelector" value="egreso">
+            <input id="egreso" type="radio" name="transactionTipo" value="egreso">
         </div>
 
         <!--
@@ -52,7 +52,7 @@
     </form>
     </div>
     <div class="tableFormat">
-        <table>
+        <table id="transactionTable">
             <tr>
                 <th>Tipo</th>
                 <th>Descripcion</th>
@@ -80,8 +80,17 @@
         form.addEventListener("submit", function (event) {
             event.preventDefault();
             <!-- console.log(event) -->
-            let transactionForm = new FormData(form)
-            console.log(transactionForm.get("datoMonto"))
+            let transactionForm = new FormData(form);
+            let transactionTableRef = document.getElementById("transactionTable");
+
+
+            // este codigo guarda en la variable 'newTransactionRow' guarda la referencia de la fila
+            let newTransactionRowRef = transactionTableRef.insertRow(-1);
+
+            //newTransactionRowRef.insertCell(0)
+            let newTypeCellRef = newTransactionRowRef.insertCell(0);
+            newTypeCellRef.textContent = "hola"
+
 
         }
         )
