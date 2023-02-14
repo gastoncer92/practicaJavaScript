@@ -63,26 +63,18 @@
 
         form.addEventListener("submit", function (event) {
             event.preventDefault();
-
             let transactionFormData = new FormData(form);
-
             transactionObj = convertFormDataToTransactionObj(transactionFormData)
-
-            saveTransactionObj(transactionObj)
-
             insertarFilaEnTransactionTable(transactionFormData)
-
+            saveTransactionObj(transactionObj)
         })
-
 
         document.addEventListener("DOMContentLoaded", function (event) {
             let transactionObjArray = JSON.parse(localStorage.getItem("transactionData"));
-
         })
 
-
         function convertFormDataToTransactionObj(transactionFormData) {
-            let transactionTipo = transactionFormData.get("transactionTipo")
+            let transactionTipo = transactionFormData.get("datoTipo")
             let datoDescripcion = transactionFormData.get("datoDescripcion")
             let datoMonto = transactionFormData.get("datoMonto")
             let datoCategoria = transactionFormData.get("datoCategoria")
@@ -92,33 +84,32 @@
                 "datoMonto": datoMonto,
                 "datoCategoria": datoCategoria
             }
-            //console.log("bien")
-
         }
 
         function insertarFilaEnTransactionTable(transactionFormData) {
             let transactionTableRef = document.getElementById("transactionTable");
-
             let newTransactionRowRef = transactionTableRef.insertRow(-1);
-
             let newTypeCellRef = newTransactionRowRef.insertCell(0)
             newTypeCellRef.textContent = transactionFormData.get("datoTipo")
-
             newTypeCellRef = newTransactionRowRef.insertCell(1)
             newTypeCellRef.textContent = transactionFormData.get("datoDescripcion")
-
             newTypeCellRef = newTransactionRowRef.insertCell(2)
             newTypeCellRef.textContent = transactionFormData.get("datoMonto")
-
             newTypeCellRef = newTransactionRowRef.insertCell(3)
             newTypeCellRef.textContent = transactionFormData.get("datoCategoria")
         }
 
         function saveTransactionObj(transactionObj) {
-            let myTransactionArray = JSON.parse(localStorage.getItem("transactionData")) || [];
+            let myTransactionArray = []
+            //let myTransactionArray = JSON.parse(localStorage.getItem("transactionData")) || [];
+            //let myTransactionArray = JSON.parse(localStorage.getItem("transactionData"));
             myTransactionArray.push(transactionObj);
-            let myTransactionArrayJSON = JSON.stringify(transactionObj);
-            localStorage.setItem("transactionData", myTransactionArrayJSON)
+            let transactionArrayJSON = JSON.stringify(transactionObj);
+            localStorage.setItem("transactionData", transactionArrayJSON)
+
+
+            //let transactionObjJSON = JSON.stringify(transactionObj);
+            //localStorage.setItem("transactionData", transactionObjJSON)
         }
     </script>
 
