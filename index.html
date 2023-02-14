@@ -15,17 +15,10 @@
     <form id="transactionForm">
         <div class="claseFormulario">
             <label for="ingreso">Ingreso</label>
-            <input id="ingreso" type="radio" name="transactionTipo" value="ingreso">
+            <input id="ingreso" type="radio" name="transactionTipo" value="ingreso" checked>
             <label for="egreso">Egreso</label>
             <input id="egreso" type="radio" name="transactionTipo" value="egreso">
         </div>
-
-        <!--
-        <div>
-            <label for="transactionTipo">Tipo</label>
-            <input id="transactionTipo" name="transactionTipo">
-        </div>
-        -->
 
         <div class="claseFormulario">
             <label for="transactionDescripcion">Descripcion</label>
@@ -52,25 +45,16 @@
     </form>
     </div>
     <div class="tableFormat">
-        <table id="transactionTable">
+        <table id="transactionTable" name="">
             <tr>
                 <th>Tipo</th>
                 <th>Descripcion</th>
                 <th>Monto</th>
                 <th>Categoria</th>
+                <th>Borrar</th>
             </tr>
-            <tr>
-                <td>Ingreso</td>
-                <td>sueldo</td>
-                <td>1000</td>
-                <td>trabajo</td>
-            </tr>
-            <tr>
-                <td>Egreso</td>
-                <td>milanesa</td>
-                <td>7</td>
-                <td>comida</td>
-            </tr>
+
+
         </table>
     </div>
 
@@ -79,9 +63,24 @@
 
         form.addEventListener("submit", function (event) {
             event.preventDefault();
-            <!-- console.log(event) -->
-            let transactionForm = new FormData(form);
-            insertarFilaEnTransactionTable(transactionForm);
+
+            let transactionFormData = new FormData(form);
+            let transactionTableRef = document.getElementById("transactionTable");
+            let newTransactionRowRef = transactionTableRef.insertRow(-1);
+            let newTypeCellRef = newTransactionRowRef;
+            newTypeCellRef.insertCell(0).textContent = transactionFormData.get("transactionTipo")
+            newTypeCellRef.insertCell(1).textContent = transactionFormData.get("datoDescripcion")
+            newTypeCellRef.insertCell(2).textContent = transactionFormData.get("datoMonto")
+            newTypeCellRef.insertCell(3).textContent = transactionFormData.get("datoCategoria")
+
+
+
+
+
+
+
+            //insertarFilaEnTransactionTable(transactionForm);
+
 
 
 
@@ -108,6 +107,8 @@
 
             newTypeCellRef = newTransactionRowRef.insertCell(3);
             newTypeCellRef.textContent = transactionForm.get('datoCategoria');
+
+            botonBorrar = document.createElement(button)
 
         }
     </script>
