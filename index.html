@@ -6,208 +6,108 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi economia</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- <link rel="stylesheet" href="./resources/css/styles.css"> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
 </head>
 
 <body>
     <h1>Mi aplicacion para gastos</h1>
 
+    <!-- <div class="container"> -->
+    <div class="row">
 
-    <form id="transactionForm">
-        <div class="claseFormulario">
-            <label for="ingreso">Ingreso</label>
-            <input id="ingreso" type="radio" name="transactionTipo" value="ingreso" checked>
-            <label for="egreso">Egreso</label>
-            <input id="egreso" type="radio" name="transactionTipo" value="egreso">
+        <div class="col s6 offset-s1">
+            <div class="tableFormat">
+                <table class="striped" id="transactionTable" data-transaction-id="1234" data-colum-amount="4">
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Descripcion</th>
+                        <th>Monto</th>
+                        <th>Categoria</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </table>
+            </div>
         </div>
 
-        <div class="claseFormulario">
-            <label for="transactionDescripcion">Descripcion</label>
-            <input required min="0" id="transactionDescripcion" name="datoDescripcion">
+        <div class="col s2 offset-s1">
+            <form id="transactionForm">
+                <div class="claseFormulario">
+                    Tipo de transaccion
+                    <div class="row">
+                        <p>
+                            <label>
+                                <input class="with-gap" value="Ingreso" name="transactionTipo" type="radio" checked />
+                                <span>Ingreso</span>
+                            </label>
+                            <label>
+                                <input class="with-gap" value="Egreso" name="transactionTipo" type="radio" />
+                                <span>Egreso</span>
+                            </label>
+                        </p>
+                    </div>
+
+                    <div class="input-field">
+                        <input required id="transactionDescripcion" name="datoDescripcion" type="text" class="validate">
+                        <label for="transactionDescripcion">Descripcion</label>
+                    </div>
+
+
+
+                    <div class="input-field">
+                        <input required id="transactionMonto" name="datoMonto" type="number" class="validate">
+                        <label for="transactionMonto">Monto</label>
+                    </div>
+
+                    <div class="claseFormulario">
+                        <label for="transactionCategoria">Elegir categoria</label>
+                        <select class="browser-default" required id="transactionCategoria" name="datoCategoria">
+                            <option value="" disabled selected>Elige una categoria</option>
+                            <option value="1">Comida</option>
+                            <option value="2">Compras</option>
+                            <option value="3">Facturas</option>
+                        </select>
+
+
+                        <label for="transactionCategoria">Categoria</label>
+                        <!-- <input required id="transactionCategoria" name="datoCategoria"> -->
+                        <select required id="transactionCategoria" name="datoCategoria">
+                            <option value="comida">comida</option>
+                            <option value="compras">compras</option>
+                            <option value="facturas">facturas</option>
+                        </select>
+                    </div>
+                    <div>
+
+
+                        <button class="btn waves-effect waves-light" type="submit" id="botonDeEnvio"
+                            name="action">Añadir
+                            <i class="material-icons right">send</i>
+                        </button>
+
+
+                    </div>
+            </form>
+
         </div>
 
-        <div class="claseFormulario">
-            <label for="transactionMonto">Monto</label>
-            <input required id="transactionMonto" name="datoMonto" type="number">
-        </div>
-
-        <div class="claseFormulario">
-            <label for="transactionCategoria">Categoria</label>
-            <input required id="transactionCategoria" name="datoCategoria">
-        </div>
-
-        <div class="claseFormulario">
-            <button id="botonDeEnvio">
-                Añadir
-            </button>
-        </div>
 
 
-    </form>
+
+
+
     </div>
-    <div class="tableFormat">
-        <table id="transactionTable" data-transaction-id="1234" data-colum-amount="4">
-            <tr>
-                <th>Tipo</th>
-                <th>Descripcion</th>
-                <th>Monto</th>
-                <th>Categoria</th>
-                <th>Eliminar</th>
-            </tr>
-            <!-- <tr>
-                <td>Ingreso</td>
-                <td>sueldo</td>
-                <td>1000</td>
-                <td>trabajo</td>
-                <td>
-                    <button>borrar
-                </td> 
-            </tr>
-            <tr>
-                <td>Egreso</td>
-                <td>milanesa</td>
-                <td>7</td>
-                <td>comida</td>
-                 <td>
-                    <button>borrar
-                </td> 
-            </tr> -->
-        </table>
     </div>
 
-    <script>
-        const form = document.getElementById("transactionForm");
 
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-            let transactionFormData = new FormData(form);
-            let transactionObj = convertFormDataToTransactionObj(transactionFormData);
-            saveTransactionObj(transactionObj);
-            insertarFilaEnTransactionTable(transactionObj);
-
-        })
-
-        document.addEventListener("DOMContentLoaded", function (event) {
-            let transactionObjArray = JSON.parse(localStorage.getItem("transactionData"))
-            transactionObjArray.forEach(
-                function (arrayElement) {
-                    insertarFilaEnTransactionTable(arrayElement);
-                    //console.log(arrayElement)
-                })
-        })
-
-        function getNewTransactionId() {
-
-            let lastTransactionId = localStorage.getItem("lastTransactionId") || "-1";
-            let newTransactionId = JSON.parse(lastTransactionId) + 1;
-            localStorage.setItem("lastTransactionId", JSON.stringify(newTransactionId))
-            return newTransactionId
-
-        }
-
-        function convertFormDataToTransactionObj(transactionFormData) {
-            let transactionTipo = transactionFormData.get('transactionTipo');
-            let transactionDescripcion = transactionFormData.get('datoDescripcion');
-            let transactionMonto = transactionFormData.get('datoMonto');
-            let transactionCategoria = transactionFormData.get('datoCategoria');
-            let transactionId = getNewTransactionId();
-            return {
-                "transactionId": transactionId,
-                "transactionTipo": transactionTipo,
-                "transactionDescripcion": transactionDescripcion,
-                "transactionMonto": transactionMonto,
-                "transactionCategoria": transactionCategoria
-            }
-        }
-
-        function insertarFilaEnTransactionTable(transactionObj) {
-            let transactionTableRef = document.getElementById("transactionTable");
-
-            let newTransactionRowRef = transactionTableRef.insertRow(-1);
-
-            newTransactionRowRef.setAttribute("data-transaction-id", transactionObj["transactionId"])
-
-            let newTypeCellRef = newTransactionRowRef.insertCell(0);
-            newTypeCellRef.textContent = transactionObj['transactionTipo'];
-
-            newTypeCellRef = newTransactionRowRef.insertCell(1);
-            newTypeCellRef.textContent = transactionObj['transactionDescripcion'];
-
-            newTypeCellRef = newTransactionRowRef.insertCell(2);
-            newTypeCellRef.textContent = transactionObj['transactionMonto'];
-
-            newTypeCellRef = newTransactionRowRef.insertCell(3);
-            newTypeCellRef.textContent = transactionObj['transactionCategoria'];
-
-            let newDeleteCell = newTransactionRowRef.insertCell(4);
-            let deleteButton = document.createElement("button");
-            deleteButton.textContent = "Eliminar";
-            newDeleteCell.appendChild(deleteButton)
-
-            deleteButton.addEventListener("click", (event) => {
-                let transactionRow = event.target.parentNode.parentNode;
-                //console.log(transactionRow.getAttribute("data-transaction-id"))
-                deteleTransactionObj(transactionRow.getAttribute("data-transaction-id"))
-                transactionRow.remove()
-
-            })
-
-
-
-        }
-
-        function deteleTransactionObj(transactionId) {
-            let transactionObjArray = JSON.parse(localStorage.getItem("transactionData"))
-            let transactionIndexInArray = transactionObjArray.findIndex(element => element.transactionId === transactionId)
-            transactionObjArray.splice(transactionIndexInArray, 1)
-
-            let transactionObjJSON = JSON.stringify(transactionObjArray);
-            localStorage.setItem("transactionData", transactionObjJSON)
-
-        }
-
-        function saveTransactionObj(transactionObj) {
-            let myTransactionArray = JSON.parse(localStorage.getItem("transactionData")) || [];
-            myTransactionArray.push(transactionObj);
-            let transactionObjJSON = JSON.stringify(myTransactionArray);
-            localStorage.setItem("transactionData", transactionObjJSON)
-
-            form.reset()
-
-        }
-    </script>
-
-    <style>
-        .claseFormulario {
-            background-color: wheat;
-            padding: 12px;
-
-        }
-
-        form {
-            text-align: center;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        td,
-        th {
-            text-align: center;
-            padding: 15px;
-            border: solid red 1px;
-        }
-
-        .tableFormat table {
-            margin: 0 auto;
-        }
-
-        #botonDeEnvio {
-            font-size: 30px;
-
-        }
-    </style>
-
+    <script src="./resources/js/scripts.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 
 </html>
