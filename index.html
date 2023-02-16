@@ -22,17 +22,17 @@
 
         <div class="claseFormulario">
             <label for="transactionDescripcion">Descripcion</label>
-            <input id="transactionDescripcion" name="datoDescripcion">
+            <input required min="0" id="transactionDescripcion" name="datoDescripcion">
         </div>
 
         <div class="claseFormulario">
             <label for="transactionMonto">Monto</label>
-            <input id="transactionMonto" name="datoMonto" type="number">
+            <input required id="transactionMonto" name="datoMonto" type="number">
         </div>
 
         <div class="claseFormulario">
             <label for="transactionCategoria">Categoria</label>
-            <input id="transactionCategoria" name="datoCategoria">
+            <input required id="transactionCategoria" name="datoCategoria">
         </div>
 
         <div class="claseFormulario">
@@ -95,13 +95,23 @@
                 })
         })
 
+        function getNewTransactionId() {
+
+            let lastTransactionId = localStorage.getItem("lastTransactionId") || "-1";
+            let newTransactionId = JSON.parse(lastTransactionId) + 1;
+            localStorage.setItem("lastTransactionId", JSON.stringify(newTransactionId))
+            return newTransactionId
+
+        }
 
         function convertFormDataToTransactionObj(transactionFormData) {
             let transactionTipo = transactionFormData.get('transactionTipo');
             let transactionDescripcion = transactionFormData.get('datoDescripcion');
             let transactionMonto = transactionFormData.get('datoMonto');
             let transactionCategoria = transactionFormData.get('datoCategoria');
+            let transactionId = getNewTransactionId();
             return {
+                "transactionId": transactionId,
                 "transactionTipo": transactionTipo,
                 "transactionDescripcion": transactionDescripcion,
                 "transactionMonto": transactionMonto,
@@ -113,6 +123,8 @@
             let transactionTableRef = document.getElementById("transactionTable");
 
             let newTransactionRowRef = transactionTableRef.insertRow(-1);
+
+            newTransactionRowRef.setAttribute("data-transaction-id", transactionObj["transactionId"])
 
             let newTypeCellRef = newTransactionRowRef.insertCell(0);
             newTypeCellRef.textContent = transactionObj['transactionTipo'];
@@ -132,17 +144,30 @@
             newDeleteCell.appendChild(deleteButton)
 
             deleteButton.addEventListener("click", (event) => {
-                console.log(event.target.parentNode.parentNode.remove())
+                let transactionRow = event.target.parentNode.parentNode;
+                //console.log(transactionRow.getAttribute("data-transaction-id"))
+                deteleTransactionObj(transactionRow.getAttribute("data-transaction-id"))
+                transactionRow.remove()
+
             })
 
 
 
         }
 
+        function deteleTransactionObj(transactionId) {
+            let transactionObjArray = JSON.parse(localStorage.getItem("transactionData"))
+            let transactionIndexInArray = transactionObjArray.findIndex(element => element.transactionId === transactionId)
+            transactionObjArray.splice(transactionIndexInArray, 1)
+
+            let transactionObjJSON = JSON.stringify(transactionObjArray);
+            localStorage.setItem("transactionData", transactionObjJSON)
+
+        }
+
         function saveTransactionObj(transactionObj) {
             let myTransactionArray = JSON.parse(localStorage.getItem("transactionData")) || [];
             myTransactionArray.push(transactionObj);
-
             let transactionObjJSON = JSON.stringify(myTransactionArray);
             localStorage.setItem("transactionData", transactionObjJSON)
 
