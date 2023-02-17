@@ -19,6 +19,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         })
     console.log("por aca")
     draw_category();
+    
+    
+    //draw_category.forEach(element => insertCategory(element));
 })
 
 function getNewTransactionId() {
