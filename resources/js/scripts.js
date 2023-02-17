@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         function (arrayElement) {
             insertarFilaEnTransactionTable(arrayElement);
         })
+    draw_category()
+    
+    //draw_category.forEach(element => insertCategory(element));
 })
 
 function getNewTransactionId() {
@@ -42,6 +45,27 @@ function convertFormDataToTransactionObj(transactionFormData) {
         "transactionCategoria": transactionCategoria
     }
 }
+
+function draw_category() {
+    let allCategory = [
+        "Comida", "Compras", "Facturas","Importaciones","awdaw"
+    ]
+    for (let index = 0; index < allCategory.length; index++){
+        insertCategory(allCategory[index])
+    }
+    //draw_category.forEach(element => insertCategory(element));
+}
+
+function insertCategory(categoryName) {
+    const selectElement = document.getElementById("transactionCategoria")
+    // let htmlInsert = '<option>'+categoryName+'</option>'
+    let htmlInsert = `<option>${categoryName}</option>` 
+    selectElement.insertAdjacentHTML('beforeend', htmlInsert)
+    //draw_category.forEach(categoryName => insertCategory)
+    
+}
+
+
 
 function insertarFilaEnTransactionTable(transactionObj) {
     let transactionTableRef = document.getElementById("transactionTable");

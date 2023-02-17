@@ -16,12 +16,18 @@
 </head>
 
 <body>
-    <h1>Mi aplicacion para gastos</h1>
+    <div class="container">
+        <!-- <h1 class="center-align">Mi aplicacion para gastos</h1> -->
+        <h2 class="center-align ">Mi aplicacion para gastos</h2>
+        <!-- <h3 class="center-align hide show-on-small">Mi aplicacion para gastos</h3> -->
+    </div>
+
+
 
     <!-- <div class="container"> -->
     <div class="row">
 
-        <div class="col s6 offset-s1">
+        <div class="col l5 offset-l1 s11 offset-s1">
             <div class="tableFormat">
                 <table class="striped" id="transactionTable" data-transaction-id="1234" data-colum-amount="4">
                     <tr>
@@ -35,7 +41,7 @@
             </div>
         </div>
 
-        <div class="col s2 offset-s1">
+        <div class="col l5 s11 offset-s1">
             <form id="transactionForm">
                 <div class="claseFormulario">
                     Tipo de transaccion
@@ -68,20 +74,12 @@
                         <label for="transactionCategoria">Elegir categoria</label>
                         <select class="browser-default" required id="transactionCategoria" name="datoCategoria">
                             <option value="" disabled selected>Elige una categoria</option>
-                            <option value="1">Comida</option>
-                            <option value="2">Compras</option>
-                            <option value="3">Facturas</option>
-                        </select>
 
 
-                        <label for="transactionCategoria">Categoria</label>
-                        <!-- <input required id="transactionCategoria" name="datoCategoria"> -->
-                        <select required id="transactionCategoria" name="datoCategoria">
-                            <option value="comida">comida</option>
-                            <option value="compras">compras</option>
-                            <option value="facturas">facturas</option>
                         </select>
+
                     </div>
+                    <br>
                     <div>
 
 
