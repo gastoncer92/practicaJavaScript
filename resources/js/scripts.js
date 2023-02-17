@@ -12,12 +12,14 @@ form.addEventListener("submit", function (event) {
 
 
 document.addEventListener("DOMContentLoaded", function (event) {
-    let transactionObjArray = JSON.parse(localStorage.getItem("transactionData"))
+    let transactionObjArray = JSON.parse(localStorage.getItem("transactionData")) || []
     transactionObjArray.forEach(
         function (arrayElement) {
             insertarFilaEnTransactionTable(arrayElement);
         })
-    draw_category()
+    console.log("por aca")
+    draw_category();
+    
     
     //draw_category.forEach(element => insertCategory(element));
 })
